@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!--usual head contents-->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Email Address Application</title>
+</head>
+<body>
+  <!--center tag to make it look nice and neat-->
+	<center>
+		<div>
+		  <h1>Email Application</h1>
+			<!--start of the form-->
+			<form action="send.php" method="post">
+				  Your name<br>
+				  <!--Name of the person applying-->
+    			<input type="text" name="cf_name"><br>
+    			<br>
+
+				  Your e-mail <abbr title="so you can recieve your approval and login instructions">(?)</abbr><br>
+				  <!--Email address of the person applying, so you can send them their login details-->
+    			<input type="text" name="cf_email"><br>
+    			<br>
+
+    			Select the domain you want the email address for <abbr title="will be adding some new ones soon">(?)</abbr><br>
+    			<!--Domain selection dropdown if you want to offer multiple domains-->
+    			<select size="1" name="cf_drop_down">
+    				<option>website.com</option>
+				</select>
+				<br>
+				<br>
+
+    			Email address you want <abbr title="Do NOT type example@website.com, only type what you want before the @!">(!)</abbr><br>
+    			<!--Their first choice of an email-->
+    			<input type="text" name="cf_email_request_choice_1"><br>
+    			<br>
+
+    			Your second choice <abbr title="in case your first choice is already taken">(?)</abbr><br>
+    			<!--Their second choice-->
+    			<input type="text" name="cf_email_request_choice_2"><br>
+    			<br>
+
+    			Do you agree not to use this tool in a malicious or harmful way?<br>
+    			<!--Radio buttons to make sure they agree to not use the email address you provide them for bad things-->
+				  <input type="radio" value="yes" name="cf_radio_button">Yes
+				  <input type="radio" value="no" name="cf_radio_button">No<br>
+				<br>
+        
+        <!--reCAPTCHA implementation, sign up for this at https://www.google.com/recaptcha/intro/index.html -->
+				<?php
+     				require_once('recaptchalib.php');
+     				$publickey = "YOUR_PUBLIC_KEY"; // you got this from the signup page
+     				echo recaptcha_get_html($publickey);
+   				?><br>
+        
+        <!--A hidden input to collect the applicant's IP address-->
+				<input type="hidden" name="cf_ip_address" value="<?php echo $_SERVER['REMOTE_ADDR']; ?>" />
+
+        <!--Submit and clear buttons-->
+				<input type="submit" value="Send">
+				<input type="reset" value="Clear"><br>
+				<br>
+
+        <!--An image that will display the applicant's IP address on the form-->
+				<img src="ip.php">
+			</form>
+		</div>
+	</center>
+	<!--Insertion of Google Analytics tracking code-->
+	<?php include_once("tracking.php") ?>
+</body>
+</html>
